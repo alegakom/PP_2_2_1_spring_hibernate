@@ -22,6 +22,7 @@ public class User {
    @OneToOne(cascade = CascadeType.ALL)
    @JoinColumn(name = "car_id", referencedColumnName = "id")
    private Car car;
+   //ссылаемся на id дочерней таблицы, формирование id будет на основе её id, добавлять дочернюю через сеттер
 
    public User() {}
    

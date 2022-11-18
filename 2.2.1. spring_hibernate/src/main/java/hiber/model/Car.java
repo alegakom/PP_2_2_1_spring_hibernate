@@ -1,5 +1,8 @@
 package hiber.model;
 
+import hiber.service.CarService;
+import hiber.service.CarServiceImp;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,7 +17,7 @@ public class Car {
     @Column(name = "series")
     int series;
 
-    @OneToOne(mappedBy = "car", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "car", cascade = CascadeType.ALL) //ссылаемся на родительскую таблицу, где мы создали поле car (в User)
     private User user;
 
     public Car() {
@@ -39,6 +42,14 @@ public class Car {
 
     public int getSeries() {
         return series;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

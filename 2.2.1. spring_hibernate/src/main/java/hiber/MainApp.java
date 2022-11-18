@@ -5,6 +5,7 @@ import hiber.model.Car;
 import hiber.model.User;
 import hiber.service.CarService;
 import hiber.service.UserService;
+import hiber.service.UserServiceImp;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.sql.SQLException;
@@ -18,10 +19,10 @@ public class MainApp {
       UserService userService = context.getBean(UserService.class);
       CarService carService = context.getBean(CarService.class);
 
-      Car carUser1 = new Car("BMW", 11);
-      User user1 = new User("User1", "Lastname1", "user1@mail.ru");
-      user1.setUserCar(carUser1);
-      userService.add(user1);
+      Car carUser1 = new Car("BMW", 11); // создали автомобиль
+      User user1 = new User("User1", "Lastname1", "user1@mail.ru"); // создали юзера
+      user1.setUserCar(carUser1); // закрепили автомобиль за юзером
+      userService.add(user1); // сохраняем наши изменения через сервис в таблицы
       Car carUser2 = new Car("Audi", 22);
       User user2 = new User("User2", "Lastname2", "user2@mail.ru");
       user2.setUserCar(carUser2);
@@ -34,12 +35,13 @@ public class MainApp {
       User user4 = new User("User4", "Lastname4", "user4@mail.ru");
       user4.setUserCar(carUser4);
       userService.add(user4);
+      List<User> users = userService.listUsers(); // вывожу на экран юзера с его автомобилем, toString переопределён у обоих
 
-      List<User> users = userService.listUsers();
       for (User user : users) {
          System.out.println(user);
       }
 
-      context.close();
+      System.out.println(userService.getUserByCar("LADA", 44)); // проверил метод
+      context.close(); // обязательно закрыть соединение, помнить о try catch
    }
 }
